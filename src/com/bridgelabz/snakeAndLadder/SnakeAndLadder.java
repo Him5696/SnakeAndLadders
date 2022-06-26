@@ -10,12 +10,51 @@ public class SnakeAndLadder {
     public static final int LADDER = 1;
     public static final int SNAKE = 2;
     static String POSITION;
+    static int diceNumber;
+    static int checkOption;
     static Random random = new Random();
+    int currentPosition = 0;
 
     public static int dieRoll() {
         int diceValue = random.nextInt(6) + 1;
         System.out.println("Dice value : " + diceValue);
         return diceValue;
+    }
+    public static void main(String[] args) {
+        System.out.println("Welcome to Snake and Ladder Game");
+        playWithTwoPlayers();
+    }
+    public static void playWithTwoPlayers() {
+        SnakeAndLadder plyr1 = new SnakeAndLadder();
+        SnakeAndLadder plyr2 = new SnakeAndLadder();
+        int player1 = plyr1.currentPosition;
+        int player2 = plyr2.currentPosition;
+        int diceCount = 0;
+        System.out.println("Game started with two players ");
+        while (player1 < END_POSITION && player2 < END_POSITION) {
+            System.out.println("Player1's turn : ");
+            diceNumber = dieRoll();
+            diceCount++;
+            if (plyr1.playerChecksOption() == END_POSITION) {
+                System.out.println(" Player-1 Won The Game ");
+            } else if (checkOption == LADDER) {
+                diceNumber = dieRoll();
+                diceCount++;
+                plyr1.playerChecksOption();
+            }
+            System.out.println(" Player2's turn : ");
+            diceNumber = dieRoll();
+            diceCount++;
+            if (plyr2.playerChecksOption() == END_POSITION) {
+                System.out.println(" Player-2 Won The Game ");
+                break;
+            } else if (checkOption == LADDER) {
+                diceNumber = dieRoll();
+                diceCount++;
+                plyr2.playerChecksOption();
+            }
+        }
+        System.out.println("Number of times Dice was played to win the game : " + diceCount);
     }
 
     public static int playerChecksOption() {
@@ -32,7 +71,7 @@ public class SnakeAndLadder {
                     break;
                 case LADDER:
                     POSITION = "Player is on Ladder";
-                    if (currentPosition + diceNumber > END_POSITION) {
+                    if ((currentPosition + diceNumber) > END_POSITION) {
                         currentPosition = currentPosition;
                     } else {
                         currentPosition += diceNumber;
@@ -47,14 +86,8 @@ public class SnakeAndLadder {
                     }
                     break;
             }
-            System.out.println("Dice Count : " + diceCount);
             System.out.println("Player's Position :" + POSITION + ",  Current Position :" + currentPosition);
         }
         return currentPosition;
-    }
-
-    public static void main(String[] args) {
-        System.out.println("Welcome to Snake and Ladder Game");
-        playerChecksOption();
     }
 }
