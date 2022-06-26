@@ -10,11 +10,11 @@ public class SnakeAndLadder {
         final int LADDER = 1;
         final int NOPLAY = 2;
         final int SNAKE = 3;
+        int count = 0;
         while (position < 100) {
             int dieNum = random.nextInt(6) + 1;
             int options = random.nextInt(4);
             {
-
                 switch (options) {
                     case LADDER:
                         if (position + dieNum > 100)
@@ -31,6 +31,5 @@ public class SnakeAndLadder {
             }
             System.out.println("position is :" + position);
         }
-        System.out.println("position is :" + position);
     }
 }
